@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
+const URL = process.env.REACT_APP_API_BASE_URL;
 
 function Register() {
   const [form, setForm] = useState({ email: '', password: '', profileImage: null });
@@ -23,7 +24,7 @@ function Register() {
     if (form.profileImage) data.append('profileImage', form.profileImage);
 
     try {
-      const res = await axios.post('http://localhost:3005/register', data);
+      const res = await axios.post(`${URL}/register`, data);
       console.log("res",res.response)
       alert('Registration successful');
       localStorage.setItem('token', res.data.token);

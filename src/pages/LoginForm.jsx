@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
-
+const URL = process.env.REACT_APP_API_BASE_URL;
 function LoginForm() {
   const [form, setForm] = useState({ email: '', password: '' });
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3005/login', form);
+      const res = await axios.post(`${URL}/login`, form);
       console.log("response",res)
       localStorage.setItem('token', res.data.access_token);
       localStorage.setItem('profileimage', res.data.user.profileImage)

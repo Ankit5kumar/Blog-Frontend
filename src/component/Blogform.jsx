@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from '../api/axiosInstance';
-
+const URL = process.env.REACT_APP_API_BASE_URL;
 const Blogform = ({ setShowModal,onBlogCreated }) => {
   const [form, setForm] = useState({
     title: '',
@@ -25,7 +25,7 @@ const Blogform = ({ setShowModal,onBlogCreated }) => {
 const token = localStorage.getItem("token");
 
     try {
-      await axios.post('http://localhost:3005/blog', data , 
+      await axios.post(`${URL}/blog`, data , 
         {
         headers: {
             Authorization:`Bearer ${token}`,

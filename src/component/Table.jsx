@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import axios from '../api/axiosInstance';
 import BlogCard from './BlogCard';
 import Blogform from './Blogform';
-
+const URL = process.env.REACT_APP_API_BASE_URL;
 const Table = () => {
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
@@ -15,7 +15,7 @@ const [showViewModal, setShowViewModal] = useState(false);
 
   const fetchData = useCallback(async () => {
   try {
-    const res = await axios.get(`http://localhost:3005/blog/${userId}`);
+    const res = await axios.get(`${URL}/blog/${userId}`);
     setBlogs(res.data);
   } catch (err) {
     console.error(err);
@@ -24,7 +24,7 @@ const [showViewModal, setShowViewModal] = useState(false);
 
   const handleDelete = async (blogId) => {
   try {
-    await axios.delete(`http://localhost:3005/blogdelete/${blogId}`);
+    await axios.delete(`${URL}/blogdelete/${blogId}`);
     fetchData();
   } catch (err) {
     alert('Failed to delete blog');
@@ -81,7 +81,7 @@ const [showViewModal, setShowViewModal] = useState(false);
               <td className="px-6 py-4">
                 <img
                   className="h-20 rounded-lg shadow-xl dark:shadow-gray-800"
-                  src={blog.image ? `http://localhost:3005/uploads/${blog.image}` : 'https://via.placeholder.com/150'}
+                  src={blog.image ? `${URL}/uploads/${blog.image}` : 'https://via.placeholder.com/150'}
                   alt={blog.title || 'Blog image'}
                 />
               </td>
@@ -142,7 +142,7 @@ const [showViewModal, setShowViewModal] = useState(false);
     <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg max-h-[80vh] overflow-y-auto">
       <h2 className="text-xl font-bold mb-4">{viewBlog.title}</h2>
       <img
-        src={viewBlog.image ? `http://localhost:3005/uploads/${viewBlog.image}` : 'https://via.placeholder.com/150'}
+        src={viewBlog.image ? `${URL}/uploads/${viewBlog.image}` : 'https://via.placeholder.com/150'}
         alt={viewBlog.title || 'Blog image'}
         className="h-40 w-full object-cover rounded mb-4"
       />

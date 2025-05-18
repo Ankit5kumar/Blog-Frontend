@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import Blogform from './Blogform'
 import { useNavigate } from 'react-router-dom';
+const URL = process.env.REACT_APP_API_BASE_URL;
 const Navbar = () => {
     const [showModal, setShowModal] = useState(false);
     const profileimage = localStorage.getItem("profileimage");
    
      const imageUrl = profileimage
-      ? `http://localhost:3005/uploads/${profileimage}`
+      ? `${URL}/uploads/${profileimage}`
     : 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?...'; 
 
       const navigate = useNavigate();

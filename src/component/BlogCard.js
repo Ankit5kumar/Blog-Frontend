@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from '../api/axiosInstance';
-
+const URL = process.env.REACT_APP_API_BASE_URL;
 const BlogCard = ({ blog, onClose, onUpdate }) => {
   const [form, setForm] = useState({
     title: blog.title || '',
@@ -17,7 +17,7 @@ const BlogCard = ({ blog, onClose, onUpdate }) => {
   };
 
    const currentImageUrl = blog.image
-    ? `http://localhost:3005/uploads/${blog.image}`
+    ? `${URL}/uploads/${blog.image}`
     : 'https://via.placeholder.com/150';
 
   const handleSubmit = async (e) => {
@@ -30,7 +30,7 @@ const BlogCard = ({ blog, onClose, onUpdate }) => {
     const token = localStorage.getItem('token');
     try {
       await axios.put(
-        `http://localhost:3005/blogupdate/${blog._id}`,
+        `${URL}/blogupdate/${blog._id}`,
         data,
         {
           headers: {

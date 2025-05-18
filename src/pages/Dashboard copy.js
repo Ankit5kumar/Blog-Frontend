@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../api/axiosInstance';
 import { useNavigate, Link } from 'react-router-dom';
-
+const URL = process.env.REACT_APP_API_BASE_URL;
 function Dashboard() {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 const userId = localStorage.getItem('userid');
-console.log("userid",userId)
+
   const fetchData = async () => {
     try {
-      const res = await axios.get(`http://localhost:3005/blog/${userId}`);
-      console.log("res",res)
+      const res = await axios.get(`${URL}/blog/${userId}`);
+    
       setBlogs(res.data);
 
       const token = localStorage.getItem('token');
@@ -52,7 +52,7 @@ console.log("blogs",blogs)
               <tr key={blog._id}>
                 <td>{blog.title}</td>
                 <td>
-                  <img src={`http://localhost:5000/uploads/${blog.image}`} alt="" width={50} />
+                  <img src={`${URL}/uploads/${blog.image}`} alt="image" width={50} />
                 </td>
                 <td>{blog.description.slice(0, 50)}...</td>
                 <td>
