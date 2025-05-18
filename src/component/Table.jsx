@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
 import axios from '../api/axiosInstance';
 import BlogCard from './BlogCard';
 import Blogform from './Blogform';
@@ -12,14 +13,15 @@ const [viewBlog, setViewBlog] = useState(null);
 const [showViewModal, setShowViewModal] = useState(false);
   const userId = localStorage.getItem('userid');
 
-  const fetchData = async () => {
-    try {
-      const res = await axios.get(`http://localhost:3005/blog/${userId}`);
-      setBlogs(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const fetchData = useCallback(async () => {
+  try {
+    const res = await axios.get(`http://localhost:3005/blog/${userId}`);
+    setBlogs(res.data);
+  } catch (err) {
+    console.error(err);
+  }
+}, [userId]);
+
   const handleDelete = async (blogId) => {
   try {
     await axios.delete(`http://localhost:3005/blogdelete/${blogId}`);
@@ -34,7 +36,7 @@ const [showViewModal, setShowViewModal] = useState(false);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
   const handleView = (blog) => {
   setViewBlog(blog);
   setShowViewModal(true);
